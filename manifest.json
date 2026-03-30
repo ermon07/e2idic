@@ -1,6 +1,6 @@
 {
-  "short_name": "I2EDictionary",
-  "name": "Ilokano to English Dictionary",
+  "short_name": "E2IDictionary",
+  "name": "English to Ilokano Dictionary",
   "icons": [
     {
       "src": "images/android-chrome-192x192.png",

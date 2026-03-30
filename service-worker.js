@@ -5,6 +5,7 @@ const urlsToCache = [
   '/styles.css',
   '/script.js',
   '/ilocano_dictionary.json',
+  '/service-worker.js',
   '/manifests.json',
   '/images/favicon.ico',
   '/images/android-chrome-192x192.png',

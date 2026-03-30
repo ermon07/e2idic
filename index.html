@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ilokano Dictionary</title>
+  <title>Ilokano to English Dictionary</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#000000">
@@ -12,22 +12,25 @@
 </head>
 <body>
 
-<h1>📖 Ilokano Dictionary</h1>
+<h1>📖 Ilokano to English Dictionary</h1>
 
 <div class="container">
   <div class="search-box">
-    <input type="text" id="search" placeholder="Search word...">
-    <button onclick="searchWord()">Search</button>
+    <input type="text" id="search" placeholder="Search word..." required>
+    <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>
   </div>
 
   <div id="result"></div>
-  <div id="search"></div>
 
   <div id="pagination" style="text-align:center; margin-top: 20px;">
     <button id="prevBtn" onclick="prevPage()">Previous</button>
     <button id="nextBtn" onclick="nextPage()">Next</button>
   </div>
 </div>
+
+
+
+
 
 <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

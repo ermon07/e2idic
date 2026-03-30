@@ -2,7 +2,7 @@ const CACHE_NAME = 'v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/styles.css',
+  '/style.css',
   '/script.js',
   '/ilocano_dictionary.json',
   '/service-worker.js',

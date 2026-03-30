@@ -3,18 +3,19 @@
   "name": "Ilokano to English Dictionary",
   "icons": [
     {
-      "src": "/images/icon-192.png",
+      "src": "images/android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/images/icon-512.png",
+      "src": "images/android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": "/?source=pwa",
+  "start_url": "http://127.0.0.1:5500/",
   "background_color": "#FFFFFF",
   "display": "standalone",
   "theme_color": "#000000"
 }
+

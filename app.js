@@ -3,12 +3,15 @@ import { initializeApp } from "https://gstatic.com";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://gstatic.com";
 
 // Replace with your project's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAhzpeGWMaNrQjossS9fuuzHCR4k7Sj6kQ",
-  authDomain: "eidic-1ad5c.firebaseapp.com",
-  projectId: "eidic-1ad5c",
-  appId: "1:136102683300:web:86770aee21d7471dadfc31"
-};
+ const firebaseConfig = {
+    apiKey: "AIzaSyAhzpeGWMaNrQjossS9fuuzHCR4k7Sj6kQ",
+    authDomain: "eidic-1ad5c.firebaseapp.com",
+    projectId: "eidic-1ad5c",
+    storageBucket: "eidic-1ad5c.firebasestorage.app",
+    messagingSenderId: "136102683300",
+    appId: "1:136102683300:web:86770aee21d7471dadfc31",
+    measurementId: "G-E0L0792GJB"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

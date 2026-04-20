@@ -41,27 +41,27 @@
   </div>
 </div>
 
- <div class="modal fade" id="wordModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalWord"></h1>
+<div class="modal fade" id="wordModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content dict-modal">
+
+      <div class="modal-header dict-header">
+        <h1 class="modal-title" id="modalWord"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      
-      <div class="modal-body">
-        <div id="modalDefinition"></div>
-        <br>
-        <a id="modalLink" class="btn btn-primary" target="_blank">
-          Use In a Sentence
+
+      <div class="modal-body dict-body">
+        <div class="dict-label">Definition</div>
+        <div id="modalDefinition" class="dict-definition"></div>
+
+        <a id="modalLink" class="dict-link" target="_blank">
+          ✏️ See usage in sentence
         </a>
       </div>
 
     </div>
   </div>
 </div>
-
 
 
 <script src="script.js"></script>

@@ -12,7 +12,7 @@ fetch('ilocano_dictionary.json')
   });
 
 // Modal event listener
-
+const wordModal = document.getElementById("wordModal");
 document.addEventListener("click", function (e) {
   const card = e.target.closest(".card");
   if (!card) return;

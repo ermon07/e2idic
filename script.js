@@ -59,6 +59,8 @@ wordModal.addEventListener("show.bs.modal", function (event) {
   document.getElementById("modalLink").href =
     `https://www.google.com/search?q=how+to+use+the+word+${word}+in+a+sentence+in+ilocano`;
 
+  // ✅ Fix button state
+  updateFavButton(word);
 });
 
 
@@ -153,26 +155,39 @@ const favBtn = document.getElementById("favBtn");
 favBtn.addEventListener("click", function () {
   if (!currentWordData) return;
 
-  const exists = favorites.find(f => f.word === currentWordData.word);
+  const exists = favorites.find(
+    f => f.word.toLowerCase() === currentWordData.word.toLowerCase()
+  );
 
   if (exists) {
-    favorites = favorites.filter(f => f.word !== currentWordData.word);
+    // REMOVE
+    favorites = favorites.filter(
+      f => f.word.toLowerCase() !== currentWordData.word.toLowerCase()
+    );
   } else {
+    // ADD
     favorites.push(currentWordData);
   }
 
   localStorage.setItem("favorites", JSON.stringify(favorites));
+
   updateFavButton(currentWordData.word);
+
+  // ✅ FORCE UI refresh when in favorites view
+  if (currentView === "favorites") {
+    renderItems(favorites);
+  }
 });
 
 function updateFavButton(word) {
   const isFav = favorites.some(f => f.word === word);
 
-  favBtn.textContent = isFav ? "❤️ Remove from Favorites" : "❤️ Add to Favorites";
-  favBtn.classList.toggle("fav-active", isFav);
-  renderItems(favorites);
-}
+  favBtn.textContent = isFav 
+    ? "❤️ Remove from Favorites"  
+    : "❤️ Add to Favorites";
 
+  favBtn.classList.toggle("fav-active", isFav);
+}
 document.getElementById("showFavs").addEventListener("click", function () {
   renderItems(favorites);
 });

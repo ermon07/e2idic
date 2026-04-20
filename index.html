@@ -38,7 +38,8 @@
     <input type="text" id="search" placeholder="Search word..." required>
     <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>
   </div>
-
+  <button id="showFavs" class="btn btn-warning">Show Favorites ❤️</button>
+  <button id="showAll" class="btn btn-secondary">Show All</button>
   <div id="result"></div>
 
   <div id="pagination" style="text-align:center; margin-top: 20px;">
@@ -59,10 +60,13 @@
       <div class="modal-body dict-body">
         <div class="dict-label">Definition</div>
         <div id="modalDefinition" class="dict-definition"></div>
-
+        </br>
         <a id="modalLink" class="dict-link" target="_blank">
           ✏️ See usage in a sentence
         </a>
+      </br>
+      </br>
+      <button id="favBtn" class="fav-btn">❤️ Add to Favorites</button>
       </div>
 
     </div>

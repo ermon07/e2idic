@@ -3,81 +3,107 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>English to Ilocano Dictionary</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#667eea">
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-  <link rel="stylesheet" href="style.css">
-  <link rel="apple-touch-icon" href="images/android-chrome-192x192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="images/android-chrome-192x192.png">
+
+  <!-- ICON -->
+  <link rel="icon" href="images/favicon.ico">
+
+  <!-- STYLES -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- BOOTSTRAP (CSS) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+  <!-- SERVICE WORKER -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        }, function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js")
+          .then(reg => console.log("SW registered:", reg.scope))
+          .catch(err => console.log("SW failed:", err));
       });
     }
   </script>
-
-
 </head>
+
 <body>
 
-<h1>📖 English to Ilocano Dictionary</h1>
+  <h1>📖 English to Ilocano Dictionary</h1>
 
-<div class="wotd-card" id="wotd">
-  <div class="wotd-title">📅 Word of the Day</div>
-  <div class="wotd-word" id="wotdWord"></div>
-  <div class="wotd-def" id="wotdDef"></div>
-</div>
+  <!-- WORD OF THE DAY -->
+  <section class="wotd-card" id="wotd">
+    <div class="wotd-title">📅 Word of the Day</div>
+    <div class="wotd-word" id="wotdWord"></div>
+    <div class="wotd-def" id="wotdDef"></div>
+  </section>
 
-<div class="container">
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Search word..." required>
-    <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>
-  </div>
-  <button id="showFavs" class="btn btn-warning">Show Favorites ❤️</button>
-  <button id="showAll" class="btn btn-secondary">Show All</button>
-  <div id="result"></div>
+  <!-- MAIN APP -->
+  <main class="container">
 
-  <div id="pagination" style="text-align:center; margin-top: 20px;">
-    <button id="prevBtn" onclick="prevPage()">Previous</button>
-    <button id="nextBtn" onclick="nextPage()">Next</button>
-  </div>
-</div>
+    <!-- SEARCH -->
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search word...">
+      <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>
+    </div>
 
-<div class="modal fade" id="wordModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content dict-modal">
+    <!-- ACTION BUTTONS -->
+    <div class="d-flex gap-2 mb-3">
+      <button id="showFavs" class="btn btn-warning">Show Favorites ❤️</button>
+      <button id="showAll" class="btn btn-secondary">Show All</button>
+    </div>
 
-      <div class="modal-header dict-header">
-        <h1 class="modal-title" id="modalWord"></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <!-- RESULTS -->
+    <div id="result"></div>
+
+    <!-- PAGINATION -->
+    <div id="pagination" class="text-center mt-4">
+      <button id="prevBtn" onclick="prevPage()">Previous</button>
+      <button id="nextBtn" onclick="nextPage()">Next</button>
+    </div>
+
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal fade" id="wordModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+
+      <div class="modal-content dict-modal">
+
+        <div class="modal-header dict-header">
+          <h1 class="modal-title" id="modalWord"></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body dict-body">
+
+          <div class="dict-label">Definition</div>
+          <div id="modalDefinition" class="dict-definition"></div>
+
+          <a id="modalLink" class="dict-link" target="_blank">
+            ✏️ See usage in a sentence
+          </a>
+          </br>
+          <button id="favBtn" class="fav-btn mt-3">
+            ❤️ Add to Favorites
+          </button>
+
+        </div>
+
       </div>
-
-      <div class="modal-body dict-body">
-        <div class="dict-label">Definition</div>
-        <div id="modalDefinition" class="dict-definition"></div>
-        </br>
-        <a id="modalLink" class="dict-link" target="_blank">
-          ✏️ See usage in a sentence
-        </a>
-      </br>
-      </br>
-      <button id="favBtn" class="fav-btn">❤️ Add to Favorites</button>
-      </div>
-
     </div>
   </div>
-</div>
 
+  <!-- SCRIPTS (optimized order) -->
+  <script src="script.js" defer></script>
 
-<script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

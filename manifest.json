@@ -16,6 +16,10 @@
   "start_url": "https://e2idic.vercel.app/",
   "background_color": "#FFFFFF",
   "display": "standalone",
-  "theme_color": "#000000"
+  "theme_color": "#667eea",
+  "description": "Offline English to Ilocano Dictionary"
 }
+
+
+
 

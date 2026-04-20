@@ -197,3 +197,4 @@ document.getElementById("showAll").addEventListener("click", function () {
   updateButtons();
   togglePagination(true);
 });
+

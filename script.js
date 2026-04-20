@@ -171,6 +171,7 @@ function updateFavButton(word) {
 
   favBtn.textContent = isFav ? "❤️ Remove from Favorites" : "❤️ Add to Favorites";
   favBtn.classList.toggle("fav-active", isFav);
+  renderItems(favorites);
 }
 
 document.getElementById("showFavs").addEventListener("click", function () {

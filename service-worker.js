@@ -1,5 +1,6 @@
-const CACHE_NAME = 'v1';
-const urlsToCache = [
+const CACHE_NAME = "ilocano-dict-v1";
+
+const ASSETS = [
   '/',
   '/index.html',
   '/style.css',
@@ -12,7 +13,8 @@ const urlsToCache = [
   '/images/android-chrome-512x512.png',
 ];
 
-sself.addEventListener("install", (event) => {
+// INSTALL
+self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS);

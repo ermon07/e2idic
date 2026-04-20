@@ -59,7 +59,6 @@ wordModal.addEventListener("show.bs.modal", function (event) {
   document.getElementById("modalLink").href =
     `https://www.google.com/search?q=how+to+use+the+word+${word}+in+a+sentence+in+ilocano`;
 
-  updateFavButton(word);
 });
 
 

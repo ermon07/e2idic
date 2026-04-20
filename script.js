@@ -93,4 +93,3 @@ function searchWord() {
     resultDiv.innerHTML = `<p class="not-found">Word not found</p>`;
   }
 }
-

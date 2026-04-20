@@ -4,12 +4,42 @@ const itemsPerPage = 10;
 
 // Load JSON
 fetch('ilocano_dictionary.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
     dictionary = data;
+
     showPage(currentPage);
     updateButtons();
+
+    // WORD OF THE DAY
+    const wotd = getWordOfTheDay(dictionary);
+
+    document.getElementById("wotdWord").textContent = wotd.word.toUpperCase();
+    document.getElementById("wotdDef").textContent = wotd.definition;
   });
+
+// Word of the Day
+
+function getWordOfTheDay(dictionary) {
+  const today = new Date().toDateString();
+
+  // check saved word
+  const saved = JSON.parse(localStorage.getItem("wotd"));
+
+  if (saved && saved.date === today) {
+    return saved.word;
+  }
+
+  // pick new word
+  const randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+
+  localStorage.setItem("wotd", JSON.stringify({
+    date: today,
+    word: randomWord
+  }));
+
+  return randomWord;
+}
 
 // Modal event listener
 const wordModal = document.getElementById("wordModal");

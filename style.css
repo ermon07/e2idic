@@ -244,3 +244,47 @@ button:disabled {
   transform: translateX(3px);
 }
 
+.wotd-card {
+  background: white;
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.wotd-title {
+  font-size: 14px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.wotd-word {
+  font-size: 22px;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.wotd-def {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.wotd-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.wotd-btn:hover {
+  background: #5a67d8;
+}

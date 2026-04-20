@@ -11,6 +11,22 @@ fetch('ilocano_dictionary.json')
     updateButtons();
   });
 
+// Modal event listener
+
+document.addEventListener("click", function (e) {
+  const card = e.target.closest(".card");
+  if (!card) return;
+
+  const word = card.dataset.word;
+  const definition = card.dataset.definition;
+
+  document.getElementById("modalWord").textContent = word.toUpperCase();
+  document.getElementById("modalDefinition").textContent = definition;
+
+  document.getElementById("modalLink").href =
+    `https://www.google.com/search?q=how+to+use+the+word+${word}+in+a+sentence+in+ilokano`;
+});
+
 // Show current page
 function showPage(page) {
   const start = (page - 1) * itemsPerPage;
@@ -19,35 +35,15 @@ function showPage(page) {
 
   const resultDiv = document.getElementById("result");
   resultDiv.innerHTML = pageItems.map(item => `
-
-    <div class="card" data-bs-toggle="modal" data-bs-target="#${item.word.toUpperCase()}">
-      <div class="word">${item.word.toUpperCase()}</div>
-    </div>
-
-  <div class="modal fade" id="${item.word.toUpperCase()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><div class="word">${item.word.toUpperCase()}</div></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="definition">${item.definition}</div>
-      </br>
-      <a class="btn btn-primary" href="https://www.google.com/search?q=how+to+use+the+word+${item.word.toUpperCase()}+in+a+sentence+in+ilokano&sca_esv=918d0965cae38051&rlz=1C1VDKB_enPH1065PH1065&sxsrf=ANbL-n4Ucy6XsxqABaPw5Cn-ce-ks68_cw%3A1774880678222&ei=pofKabqiDc-9vr0PzLbR2Qw&biw=1080&bih=1751&ved=0ahUKEwi6jeDi6ceTAxXPnq8BHUxbNMsQ4dUDCBE&uact=5&oq=how+to+use+the+word+abduct+in+a+sentence+in+ilokano&gs_lp=Egxnd3Mtd2l6LXNlcnAiM2hvdyB0byB1c2UgdGhlIHdvcmQgYWJkdWN0IGluIGEgc2VudGVuY2UgaW4gaWxva2FubzIFEAAY7wUyBRAAGO8FMgUQABjvBUjeOlCJKVjfNXACeAGQAQGYAeABoAG7EqoBBjAuMTIuMrgBA8gBAPgBAZgCBqAC-QTCAgoQABiwAxjWBBhHwgIKECEYoAEYwwQYCsICBBAhGAqYAwCIBgGQBgiSBwMyLjSgB5ZDsgcDMC40uAfyBMIHBTAuNS4xyAcMgAgA&sclient=gws-wiz-serp" role="button">Use In a Sentence</a>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-       
-      </div>
-    </div>
+  <div class="card"
+       data-bs-toggle="modal"
+       data-bs-target="#wordModal"
+       data-word="${item.word}"
+       data-definition="${item.definition}">
+    <div class="word">${item.word.toUpperCase()}</div>
   </div>
-</div>
+`).join("");
 
-  `).join("");
-
-  
-  
 }
 
 // Update Next/Previous button state
@@ -85,29 +81,14 @@ function searchWord() {
   if (found.length > 0) {
     
     resultDiv.innerHTML = found.map(item => `
-      <div class="card" data-bs-toggle="modal" data-bs-target="#${item.word.toUpperCase()}">
-        <div class="word">${item.word.toUpperCase()}</div>
-      </div>
-
-      <div class="modal fade" id="${item.word.toUpperCase()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><div class="word">${item.word.toUpperCase()}</div></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="definition">${item.definition}</div>
-      </br>
-      <a class="btn btn-primary" href="https://www.google.com/search?q=how+to+use+the+word+${item.word.toUpperCase()}+in+a+sentence+in+ilokano&sca_esv=918d0965cae38051&rlz=1C1VDKB_enPH1065PH1065&sxsrf=ANbL-n4Ucy6XsxqABaPw5Cn-ce-ks68_cw%3A1774880678222&ei=pofKabqiDc-9vr0PzLbR2Qw&biw=1080&bih=1751&ved=0ahUKEwi6jeDi6ceTAxXPnq8BHUxbNMsQ4dUDCBE&uact=5&oq=how+to+use+the+word+abduct+in+a+sentence+in+ilokano&gs_lp=Egxnd3Mtd2l6LXNlcnAiM2hvdyB0byB1c2UgdGhlIHdvcmQgYWJkdWN0IGluIGEgc2VudGVuY2UgaW4gaWxva2FubzIFEAAY7wUyBRAAGO8FMgUQABjvBUjeOlCJKVjfNXACeAGQAQGYAeABoAG7EqoBBjAuMTIuMrgBA8gBAPgBAZgCBqAC-QTCAgoQABiwAxjWBBhHwgIKECEYoAEYwwQYCsICBBAhGAqYAwCIBgGQBgiSBwMyLjSgB5ZDsgcDMC40uAfyBMIHBTAuNS4xyAcMgAgA&sclient=gws-wiz-serp" role="button">Use In a Sentence</a>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    </div>
+  <div class="card"
+       data-bs-toggle="modal"
+       data-bs-target="#wordModal"
+       data-word="${item.word}"
+       data-definition="${item.definition}">
+    <div class="word">${item.word.toUpperCase()}</div>
   </div>
-</div>
-     
-    `).join("");
+`).join("");
   } else {
     resultDiv.innerHTML = `<p class="not-found">Word not found</p>`;
   }

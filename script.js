@@ -34,14 +34,20 @@ function getWordOfTheDay(dictionary) {
   const today = new Date().toDateString();
   const saved = JSON.parse(localStorage.getItem("wotd"));
 
-  if (saved && saved.date === today) return saved.word;
+  // return saved if still valid
+  if (saved && saved.date === today && saved.word) {
+    return saved.word;
+  }
 
+  // pick new word
   const randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 
-  localStorage.setItem("wotd", JSON.stringify({
+  const wotdData = {
     date: today,
     word: randomWord
-  }));
+  };
+
+  localStorage.setItem("wotd", JSON.stringify(wotdData));
 
   return randomWord;
 }
@@ -270,3 +276,7 @@ document.getElementById("wotdDef").textContent = wotd.definition;
 // 🔔 trigger notification
 checkDailyWOTDNotification(wotd);
 
+setInterval(() => {
+  const wotd = getWordOfTheDay(dictionary);
+  checkDailyWOTDNotification(wotd);
+}, 60 * 60 * 1000); // every 1 hour check

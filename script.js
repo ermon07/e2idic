@@ -13,6 +13,7 @@ const paginationDiv = document.getElementById("pagination");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const searchInput = document.getElementById("search");
+const image = document.getElementById('wotdImg');
 
 // ===== LOAD DATA =====
 fetch('ilocano_dictionary.json')
@@ -212,6 +213,7 @@ document.getElementById("showFavs").addEventListener("click", function () {
   clearSearch();
   renderItems(favorites);
   togglePagination(false);
+  image.src = 'images/ek-korean-heart.png';
 });
 
 document.getElementById("showAll").addEventListener("click", function () {
@@ -220,6 +222,7 @@ document.getElementById("showAll").addEventListener("click", function () {
   showPage(currentPage);
   updateButtons();
   togglePagination(true);
+  image.src = 'images/ek-book.png';
 });
 
 // ===== TOAST FUNCTION =====

@@ -152,10 +152,16 @@ favBtn.addEventListener("click", function () {
     f => f.word.toLowerCase() === currentWordData.word.toLowerCase()
   );
 
+  let actionType = "";
+
   if (index !== -1) {
     favorites.splice(index, 1);
+    actionType = "remove";
+    showToast("Removed from Favorites 💔", "remove");
   } else {
     favorites.push(currentWordData);
+    actionType = "add";
+    showToast("Added to Favorites ❤️", "success");
   }
 
   saveFavorites();
@@ -198,3 +204,24 @@ document.getElementById("showAll").addEventListener("click", function () {
   togglePagination(true);
 });
 
+// ===== TOAST FUNCTION =====
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+
+  // reset classes
+  toast.className = "toast-custom show";
+
+  if (type === "success") {
+    toast.classList.add("toast-success");
+  } else if (type === "remove") {
+    toast.classList.add("toast-remove");
+  }
+
+  // auto hide
+  clearTimeout(window.toastTimeout);
+  window.toastTimeout = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}

@@ -1,96 +1,144 @@
+# 📖 English to Ilocano Dictionary (PWA)
 
-
-## ▶️ Getting Started
-
-### 1. Clone the repository
-git clone https://github.com/ermon07/e2idic.git
-
-
-### 2. Run the project
-
-Open `index.html` in your browser.
-
-> ⚠️ For full PWA features (offline mode), use a local server (e.g., VS Code Live Server).
+A modern, responsive **English to Ilocano Dictionary Web App** with offline support, favorites, and a clean UI inspired by modern learning apps.
 
 ---
 
-## 💡 How It Works
+## 🚀 Features
 
-- Loads data from `ilocano_dictionary.json`  
-- Displays words using `script.js`  
-- Filters results through search  
-- Uses pagination for navigation  
-- Caches files using `service-worker.js`  
-- Enables install via `manifest.json`  
+* 🔍 **Search Functionality**
+  Quickly find words with a simple search button.
 
----
+* 📄 **Word Cards + Modal View**
+  Click a word to see its definition and usage.
 
-## 📱 PWA Features
+* ❤️ **Favorites System**
+  Save and manage your favorite words using local storage.
 
-- 📲 Add to Home Screen  
-- ⚡ Offline access  
-- 🚀 Faster loading via caching  
+* 📅 **Word of the Day**
+  Displays a random word daily (cached per day).
 
----
+* 📚 **Pagination**
+  Smooth browsing with previous/next navigation.
 
-## 🎯 Use Cases
+* 📱 **Progressive Web App (PWA)**
 
-- 📖 Language learning  
-- 🏫 Educational tool  
-- 📱 Offline dictionary  
-- 🧠 Vocabulary practice  
+  * Installable on mobile/desktop
+  * Works offline (via Service Worker)
 
----
-
-## 🔧 Future Improvements
-
-- ⭐ Favorite words  
-- 🌙 Dark mode  
-- 🔊 Audio pronunciation  
-- 🌐 API integration  
-- 📊 Example sentences  
->>>>>>> 52efab18f212973c7c25c0e1330cab5aa81ac605
+* 🎨 **Modern UI Design**
+  Glassmorphism + gradient theme + animated modal
 
 ---
 
-## 🤝 Contributing
+## 🛠️ Tech Stack
 
-<<<<<<< HEAD
-Contributions are welcome!
+* HTML5
+* CSS3 (Custom UI + animations)
+* JavaScript (Vanilla)
+* Bootstrap 5
+* LocalStorage API
+* Service Workers
 
-1. Fork the repo
-2. Create a new branch (`feature-branch`)
-3. Commit your changes
-4. Push and open a Pull Request
+---
+
+## 📂 Project Structure
+
+```
+project-folder/
+│
+├── index.html
+├── style.css
+├── script.js
+├── manifest.json
+├── service-worker.js
+├── ilocano_dictionary.json
+│
+├── images/
+│   ├── favicon.ico
+│   ├── android-chrome-192x192.png
+│   └── android-chrome-512x512.png
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+1. Clone or download the project
+
+```
+git clone https://github.com/your-username/e2i-dictionary.git
+```
+
+2. Open the project
+
+* Open `index.html` in your browser
+* OR use Live Server (recommended)
+
+3. Make sure these files exist:
+
+* `ilocano_dictionary.json`
+* `service-worker.js`
+
+---
+
+## 📦 PWA Setup Notes
+
+* Uses:
+
+  * `manifest.json` for installability
+  * `service-worker.js` for offline caching
+
+* To test:
+
+  * Open Chrome DevTools → Application tab
+  * Enable Offline mode
+
+---
+
+## 🧠 How It Works
+
+### 📌 Data Loading
+
+```js
+fetch('ilocano_dictionary.json')
+```
+
+### 📌 Word of the Day
+
+* Stored in `localStorage`
+* Updates once per day
+
+### 📌 Favorites
+
+```js
+localStorage.setItem("favorites", JSON.stringify(favorites));
+```
+
+### 📌 Pagination
+
+* 10 words per page
+* Controlled via `currentPage`
+
+---
+
+## ✨ Future Improvements
+
+* 🔊 Audio pronunciation
+* 🌐 API-based dictionary
+* 📊 Learning progress tracking
+* 🎯 Quiz mode
+* 🌙 Dark mode
+* 📱 Mobile app (Capacitor / React Native)
+
+---
+
+## 🧑‍💻 Author
+
+**Ermon Kyle Antonio**
 
 ---
 
 ## 📄 License
 
-This project is open-source and available under the **MIT License**.
-=======
-1. Fork the repository  
-2. Create a new branch  
-3. Commit your changes  
-4. Open a Pull Request  
->>>>>>> 52efab18f212973c7c25c0e1330cab5aa81ac605
-
----
-
-## 👨‍💻 Author
-
-<<<<<<< HEAD
-Created by Ermon Kyle with the help of CHATGPT :D 
-
----
-
-⭐ If you like this project, give it a star on GitHub!
-=======
-GitHub: https://github.com/ermon07 with the help of CHATGPT
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ on GitHub!
->>>>>>> 52efab18f212973c7c25c0e1330cab5aa81ac605
+This project is open-source and free to use for educational purposes.

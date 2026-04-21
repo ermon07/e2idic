@@ -198,11 +198,48 @@ button:disabled {
   border-bottom: 1px solid #eee;
 }
 
+.dict-header {
+  position: relative;
+  padding: 22px 20px;
+  background: linear-gradient(135deg, var(--primary), #764ba2);
+  overflow: hidden;
+}
+
+/* CENTER TITLE */
+.dict-title-wrap {
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
 #modalWord {
   font-size: 22px;
   font-weight: 800;
   color: #fff;
+  margin: 0;
   text-transform: capitalize;
+}
+
+/* FLOATING IMAGE */
+.modal-illustration {
+  position: absolute;
+  top: 0%;
+  right: 0;
+  bottom: 0;
+  width: 110px;   /* adjust size */
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* KEEP CLOSE BUTTON ABOVE EVERYTHING */
+.dict-header .btn-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 3;
 }
 
 /* BODY */
@@ -247,13 +284,40 @@ button:disabled {
    WORD OF THE DAY
 ========================= */
 .wotd-card {
+  position: relative;
   background: #fff;
   margin: 20px auto;
   max-width: 800px;
   padding: 18px;
   border-radius: 14px;
   box-shadow: var(--shadow);
+
   text-align: center;
+  overflow: hidden; /* keeps image inside rounded corners */
+}
+
+/* CENTER CONTENT STAYS NORMAL */
+.wotd-title,
+.wotd-word,
+.wotd-def {
+  position: relative;
+  z-index: 2;
+}
+
+/* FLOATING IMAGE */
+.wotd-image {
+  position: absolute;
+  top: -8%;
+  right: 0;
+  bottom: 0;
+  z-index: 1; /* behind text */
+  pointer-events: none; /* prevents interaction blocking */
+}
+
+.wotd-image img {
+  width: 160px;   /* adjust size */
+  height: auto;
+  opacity: 0.9;   /* optional soft look */
 }
 
 .wotd-title {

@@ -34,16 +34,19 @@
 </head>
 
 <body>
-  
-  
-  <h1>📖 English to Ilocano Dictionary</h1>
-                      
+                
   <!-- WORD OF THE DAY -->
-  <section class="wotd-card" id="wotd">
-    <div class="wotd-title">📅 Word of the Day</div>
-    <div class="wotd-word" id="wotdWord"></div>
-    <div class="wotd-def" id="wotdDef"></div>
-  </section>
+ <section class="wotd-card" id="wotd">
+  
+  <div class="wotd-title">📅 Word of the Day</div>
+  <div class="wotd-word" id="wotdWord"></div>
+  <div class="wotd-def" id="wotdDef"></div>
+
+  <div class="wotd-image">
+    <img src="images/ek-book.png" alt="Word illustration">
+  </div>
+
+</section>
 
   <!-- MAIN APP -->
   <main class="container">
@@ -78,9 +81,16 @@
       <div class="modal-content dict-modal">
 
         <div class="modal-header dict-header">
-          <h1 class="modal-title" id="modalWord"></h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+
+  <div class="dict-title-wrap">
+    <h1 class="modal-title" id="modalWord"></h1>
+  </div>
+
+  <img class="modal-illustration" src="images/ek-smile.png" alt="">
+
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+</div>
 
         <div class="modal-body dict-body">
 

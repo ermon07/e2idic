@@ -10,7 +10,10 @@ const ASSETS = [
   '/manifest.json',
   '/images/favicon.ico',
   '/images/android-chrome-192x192.png',
-  '/images/android-chrome-512x512.png'
+  '/images/android-chrome-512x512.png',
+  '/images/ek-smile.png',
+  '/images/ek-book.png',
+  '/images/ek-korean-heart.png'
 ];
 
 // INSTALL

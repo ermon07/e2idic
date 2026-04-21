@@ -270,7 +270,3 @@ document.getElementById("wotdDef").textContent = wotd.definition;
 // 🔔 trigger notification
 checkDailyWOTDNotification(wotd);
 
-setInterval(() => {
-  const wotd = getWordOfTheDay(dictionary);
-  checkDailyWOTDNotification(wotd);
-}, 60 * 60 * 1000); // every 1 hour check

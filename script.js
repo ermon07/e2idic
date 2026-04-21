@@ -46,6 +46,18 @@ function getWordOfTheDay(dictionary) {
   return randomWord;
 }
 
+// ===== NOTIFICATION PERMISSION =====
+function requestNotificationPermission() {
+  if (!("Notification" in window)) return;
+
+  if (Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+}
+
+// call on load
+requestNotificationPermission();
+
 // ===== PAGINATION TOGGLE =====
 function togglePagination(show) {
   paginationDiv.style.display = show ? "block" : "none";
@@ -225,3 +237,40 @@ function showToast(message, type = "success") {
     toast.classList.remove("show");
   }, 2000);
 }
+
+function sendWOTDNotification(wordObj) {
+  if (Notification.permission !== "granted") return;
+
+  navigator.serviceWorker.ready.then(reg => {
+    reg.showNotification("📅 Word of the Day", {
+      body: `${wordObj.word.toUpperCase()} — ${wordObj.definition}`,
+      icon: "images/android-chrome-192x192.png",
+      badge: "images/favicon.ico",
+      tag: "wotd",
+      renotify: true
+    });
+  });
+}
+
+function checkDailyWOTDNotification(wordObj) {
+  const today = new Date().toDateString();
+  const last = localStorage.getItem("wotd_notified");
+
+  if (last === today) return; // already sent today
+
+  sendWOTDNotification(wordObj);
+  localStorage.setItem("wotd_notified", today);
+}
+
+const wotd = getWordOfTheDay(dictionary);
+
+document.getElementById("wotdWord").textContent = wotd.word.toUpperCase();
+document.getElementById("wotdDef").textContent = wotd.definition;
+
+// 🔔 trigger notification
+checkDailyWOTDNotification(wotd);
+
+setInterval(() => {
+  const wotd = getWordOfTheDay(dictionary);
+  checkDailyWOTDNotification(wotd);
+}, 60 * 60 * 1000); // every 1 hour check

@@ -57,7 +57,9 @@ h1 {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  margin-top: 30px;
+  margin-top: 35px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .search-box input {
@@ -399,7 +401,9 @@ button:disabled {
    STREAK SYSTEM
 ========================= */
 .streak-box {
-  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   align-items: center;
   font-weight: 700;
   color: #fff;
@@ -410,9 +414,6 @@ button:disabled {
   white-space: nowrap;
 }
 
-.streak-box span {
-  margin-left: 5px;
-}
 
 /* WOTD STREAK */
 .wotd-streak {

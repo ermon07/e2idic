@@ -1,4 +1,4 @@
-const CACHE_NAME = "dictionary-app-v1.1"; // 🔥 change version when you update
+const CACHE_NAME = "dictionary-app-v1.2"; // 🔥 change version when you update
 const urlsToCache = [
   '/',
   '/index.html',

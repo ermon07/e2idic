@@ -12,7 +12,8 @@ const urlsToCache = [
   '/images/android-chrome-512x512.png',
   '/images/ek-smile.png',
   '/images/ek-book.png',
-  '/images/ek-korean-heart.png'
+  '/images/ek-korean-heart.png',
+  '/images/ek-history.png'
 ];
 
 // Install

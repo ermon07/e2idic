@@ -1,6 +1,5 @@
-const CACHE_NAME = "ilocano-dict-v1.1";
-
-const ASSETS = [
+const CACHE_NAME = "dictionary-app-v1.1"; // 🔥 change version when you update
+const urlsToCache = [
   '/',
   '/index.html',
   '/style.css',
@@ -16,47 +15,35 @@ const ASSETS = [
   '/images/ek-korean-heart.png'
 ];
 
-// INSTALL
+// Install
 self.addEventListener("install", (event) => {
+  self.skipWaiting(); // 🔥 forces new SW to activate immediately
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
+      return cache.addAll(urlsToCache);
     })
   );
 });
 
-// FETCH (cache-first strategy)
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request);
-    })
-  );
-});
-
-// ACTIVATE (clean old cache)
+// Activate
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME)
-            .map((key) => caches.delete(key))
-      );
-    })
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key); // 🔥 delete old caches
+          }
+        })
+      )
+    )
   );
+  self.clients.claim(); // 🔥 take control immediately
 });
 
-self.addEventListener("notificationclick", function (event) {
-  event.notification.close();
-
-  event.waitUntil(
-    clients.matchAll({ type: "window" }).then(clientList => {
-      for (const client of clientList) {
-        if ("focus" in client) return client.focus();
-      }
-      if (clients.openWindow) {
-        return clients.openWindow("/");
-      }
-    })
+// Fetch (important fix)
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });

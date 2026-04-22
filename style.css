@@ -57,6 +57,7 @@ h1 {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .search-box input {
@@ -454,5 +455,35 @@ button:disabled {
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
+}
+
+/* =========================
+   HISTORY CARDS
+========================= */
+
+.history-card {
+  background: #f9fafc;
+  border: 1px dashed #ddd;
+}
+
+.history-card:hover {
+  border-color: #667eea;
+  background: #eef1ff;
+}
+
+/* =========================
+   HISTORY CARDS
+========================= */
+
+.level-box {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  padding: 10px 14px 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  font-weight: 700;
+  font-size: 13px;
 }
 

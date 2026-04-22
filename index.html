@@ -34,6 +34,8 @@
 </head>
 
 <body>
+
+  
                 
   <!-- WORD OF THE DAY -->
  <section class="wotd-card" id="wotd">
@@ -46,11 +48,18 @@
   <div class="wotd-image">
     <img id="wotdImg" src="images/ek-book.png" alt="Word illustration">
   </div>
-
+ 
 </section>
 
   <!-- MAIN APP -->
   <main class="container">
+    <div class="level-box">
+  🏅 Level: <span id="levelDisplay">1</span>  
+  ⭐ XP: <span id="xpDisplay">0</span>
+  </div>
+
+  </br>
+  
 
     <!-- SEARCH -->
   <div class="search-box">
@@ -62,11 +71,14 @@
     </div>
   </div>
 
-    <!-- ACTION BUTTONS -->
-  <div class="action-cards">
-    <div class="action-card" id="showFavs">❤️ Favorites</div>
-    <div class="action-card" id="showAll">📚 All Words</div>
-  </div>
+  
+
+  <!-- ACTION BUTTONS -->
+<div class="action-cards">
+  <div class="action-card" id="showAll">📚 All Words</div>
+  <div class="action-card" id="showFavs">❤️ Favorites</div>
+  <div class="action-card" id="showHistory">🕘 History</div>
+</div>
 
     <!-- RESULTS -->
     <div id="result"></div>

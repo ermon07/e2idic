@@ -13410,6 +13410,12 @@
         "language": "Ilocano"
     },
     {
+        "word": "happy",
+        "link": "https://ilocano.pinoydictionary.com/word/happy/",
+        "definition": "adj. naragsac",
+        "language": "Ilocano"
+    }, 
+    {
         "word": "happenings",
         "link": "https://ilocano.pinoydictionary.com/word/happenings/",
         "definition": "n. maar-aramid, paspasamac",
@@ -27882,12 +27888,6 @@
         "language": "Ilocano"
     },
     {
-        "word": "siccessful",
-        "link": "https://ilocano.pinoydictionary.com/word/siccessful/",
-        "definition": "adj. nagballigi",
-        "language": "Ilocano"
-    },
-    {
         "word": "sick",
         "link": "https://ilocano.pinoydictionary.com/word/sick/",
         "definition": "adj. agsakit",
@@ -30093,6 +30093,12 @@
         "word": "success",
         "link": "https://ilocano.pinoydictionary.com/word/success/",
         "definition": "n. balligi",
+        "language": "Ilocano"
+    },
+    {
+        "word": "successful",
+        "link": "https://ilocano.pinoydictionary.com/word/siccessful/",
+        "definition": "adj. nagballigi",
         "language": "Ilocano"
     },
     {

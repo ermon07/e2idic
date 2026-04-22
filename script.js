@@ -452,7 +452,7 @@ const messages = [
 ];
 
 function startHourlyNotifications() {
-  setInterval(sendRandomNotification, 60 * 60 * 20);
+  setInterval(sendRandomNotification, 60 * 60 * 1000 );
 }
 
 function sendRandomNotification() {

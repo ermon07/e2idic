@@ -1,4 +1,4 @@
-const CACHE_NAME = "ilocano-dict-v1";
+const CACHE_NAME = "ilocano-dict-v1.1";
 
 const ASSETS = [
   '/',

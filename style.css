@@ -27,15 +27,6 @@ body {
 }
 
 /* =========================
-   FORCE UPDATE SERVICE WORKER
-======================== */
-
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js").then((reg) => {
-    reg.update(); // 🔥 forces update check
-  });
-}
-/* =========================
    TYPOGRAPHY
 ======================== */
 h1 {

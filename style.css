@@ -393,3 +393,66 @@ button:disabled {
 .toast-remove {
   background: #e74c3c;
 }
+
+/* =========================
+   STREAK SYSTEM
+========================= */
+.streak-box {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #ff7a18, #ffb347);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+}
+
+.streak-box span {
+  margin-left: 5px;
+}
+
+/* WOTD STREAK */
+.wotd-streak {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff7a18;
+  margin-bottom: 6px;
+}
+
+/* =========================
+   ACTION CARDS (UPGRADE)
+========================= */
+.action-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.action-card {
+  flex: 1;
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: 0.25s ease;
+}
+
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  border-color: var(--primary);
+}
+
+/* Active state (when selected) */
+.action-card.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+

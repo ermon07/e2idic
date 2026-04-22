@@ -39,6 +39,7 @@
  <section class="wotd-card" id="wotd">
   
   <div class="wotd-title">📅 Word of the Day</div>
+  <div class="wotd-streak">🔥 <span id="streakCountWOTD">0</span> Day Streak</div>
   <div class="wotd-word" id="wotdWord"></div>
   <div class="wotd-def" id="wotdDef"></div>
 
@@ -52,16 +53,20 @@
   <main class="container">
 
     <!-- SEARCH -->
-    <div class="search-box">
-      <input type="text" id="search" placeholder="Search word...">
-      <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search word...">
+    <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>
+
+    <div class="streak-box">
+    🔥 <span id="streakCount">0</span>
     </div>
+  </div>
 
     <!-- ACTION BUTTONS -->
-    <div class="d-flex gap-2 mb-3">
-      <button id="showFavs" class="btn btn-warning">Show Favorites ❤️</button>
-      <button id="showAll" class="btn btn-secondary">Show All</button>
-    </div>
+  <div class="action-cards">
+    <div class="action-card" id="showFavs">❤️ Favorites</div>
+    <div class="action-card" id="showAll">📚 All Words</div>
+  </div>
 
     <!-- RESULTS -->
     <div id="result"></div>

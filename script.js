@@ -6,6 +6,68 @@ let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 let currentWordData = null;
 let currentView = "all";
 
+// ===== STREAK SYSTEM =====
+const streakKey = "streakData";
+let streakUpdatedToday = false;
+
+function getTodayDate() {
+  return new Date().toDateString();
+}
+
+function loadStreak() {
+  let data = JSON.parse(localStorage.getItem(streakKey)) || {
+    count: 0,
+    lastDate: null
+  };
+
+  updateStreakUI(data.count);
+  return data;
+}
+
+function updateStreakUI(count) {
+  const main = document.getElementById("streakCount");
+  if (main) main.textContent = count;
+
+  const wod = document.getElementById("streakCountWOTD");
+  if (wod) wod.textContent = count;
+}
+
+function updateStreak() {
+  let data = loadStreak();
+  const today = getTodayDate();
+
+  if (!data.lastDate) {
+    data.count = 1;
+  } else {
+    const last = new Date(data.lastDate);
+    const current = new Date(today);
+
+    const diffDays = Math.floor((current - last) / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      data.count += 1;
+    } else if (diffDays > 1) {
+      data.count = 1; // reset
+      showToast("😢 Streak reset!", "remove");
+    }
+  }
+
+  data.lastDate = today;
+
+  localStorage.setItem(streakKey, JSON.stringify(data));
+  updateStreakUI(data.count);
+}
+
+function checkNewDay() {
+  const today = getTodayDate();
+  const lastCheck = localStorage.getItem("lastCheckDate");
+
+  if (lastCheck !== today) {
+    streakUpdatedToday = false;
+    localStorage.setItem("lastCheckDate", today);
+  }
+}
+
 // ===== DOM CACHE =====
 const resultDiv = document.getElementById("result");
 const favBtn = document.getElementById("favBtn");
@@ -35,12 +97,10 @@ function getWordOfTheDay(dictionary) {
   const today = new Date().toDateString();
   const saved = JSON.parse(localStorage.getItem("wotd"));
 
-  // return saved if still valid
   if (saved && saved.date === today && saved.word) {
     return saved.word;
   }
 
-  // pick new word
   const randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 
   const wotdData = {
@@ -62,7 +122,6 @@ function requestNotificationPermission() {
   }
 }
 
-// call on load
 requestNotificationPermission();
 
 // ===== PAGINATION TOGGLE =====
@@ -121,11 +180,18 @@ function prevPage() {
   }
 }
 
-// ===== SEARCH (BUTTON ONLY) =====
+// ===== SEARCH =====
 document.querySelector(".search-box button")
   .addEventListener("click", searchWord);
 
 function searchWord() {
+  // 🔥 STREAK TRIGGER
+  if (!streakUpdatedToday) {
+    updateStreak();
+    streakUpdatedToday = true;
+    showToast("🔥 Streak updated!", "success");
+  }
+
   const input = searchInput.value.trim().toLowerCase();
 
   currentView = "search";
@@ -171,15 +237,11 @@ favBtn.addEventListener("click", function () {
     f => f.word.toLowerCase() === currentWordData.word.toLowerCase()
   );
 
-  let actionType = "";
-
   if (index !== -1) {
     favorites.splice(index, 1);
-    actionType = "remove";
     showToast("Removed from Favorites 💔", "remove");
   } else {
     favorites.push(currentWordData);
-    actionType = "add";
     showToast("Added to Favorites ❤️", "success");
   }
 
@@ -225,13 +287,11 @@ document.getElementById("showAll").addEventListener("click", function () {
   image.src = 'images/ek-book.png';
 });
 
-// ===== TOAST FUNCTION =====
+// ===== TOAST =====
 function showToast(message, type = "success") {
   const toast = document.getElementById("toast");
 
   toast.textContent = message;
-
-  // reset classes
   toast.className = "toast-custom show";
 
   if (type === "success") {
@@ -240,13 +300,13 @@ function showToast(message, type = "success") {
     toast.classList.add("toast-remove");
   }
 
-  // auto hide
   clearTimeout(window.toastTimeout);
   window.toastTimeout = setTimeout(() => {
     toast.classList.remove("show");
   }, 2000);
 }
 
+// ===== NOTIFICATIONS =====
 function sendWOTDNotification(wordObj) {
   if (Notification.permission !== "granted") return;
 
@@ -265,21 +325,24 @@ function checkDailyWOTDNotification(wordObj) {
   const today = new Date().toDateString();
   const last = localStorage.getItem("wotd_notified");
 
-  if (last === today) return; // already sent today
+  if (last === today) return;
 
   sendWOTDNotification(wordObj);
   localStorage.setItem("wotd_notified", today);
 }
+
+// ===== INIT =====
+checkNewDay();
+loadStreak();
 
 const wotd = getWordOfTheDay(dictionary);
 
 document.getElementById("wotdWord").textContent = wotd.word.toUpperCase();
 document.getElementById("wotdDef").textContent = wotd.definition;
 
-// 🔔 trigger notification
 checkDailyWOTDNotification(wotd);
 
 setInterval(() => {
   const wotd = getWordOfTheDay(dictionary);
   checkDailyWOTDNotification(wotd);
-}, 60 * 60 * 1000); // every 1 hour check
+}, 60 * 60 * 1000);

@@ -48,7 +48,74 @@ h1 {
   padding: 25px;
   border-radius: 16px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  margin-bottom: 0;
 }
+
+.quiz-section {
+  position: relative;
+  background: #fff;
+  margin: 20px auto;
+  max-width: 800px;   /* SAME as WOTD */
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.quiz-card-wrapper {
+  width: 100%;
+}
+
+/* Header like WOTD tone */
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quiz-header h2 {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.quiz-header p {
+  font-size: 13px;
+  color: #ff7a18; /* matches streak accent vibe */
+  font-weight: 700;
+}
+
+/* Start button smaller like WOTD style feel */
+#startQuizBtn {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+.quiz-card {
+  background: #f9fafc;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  text-align: center;
+}
+
+.quiz-card input {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.quiz-card button {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+
 
 /* =========================
    SEARCH
@@ -487,4 +554,6 @@ button:disabled {
   font-weight: 700;
   font-size: 13px;
 }
+
+
 

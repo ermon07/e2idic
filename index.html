@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>English to Ilocano Dictionary</title>
 
-  <!-- PWA -->
+  <!-- =========================
+       PWA CONFIG
+  ========================== -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#667eea">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="images/android-chrome-192x192.png">
 
-  <!-- ICON -->
+  <!-- =========================
+       FAVICON
+  ========================== -->
   <link rel="icon" href="images/favicon.ico">
 
-  <!-- STYLES -->
+  <!-- =========================
+       STYLES
+  ========================== -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- BOOTSTRAP (CSS) -->
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-  <!-- SERVICE WORKER -->
+  <!-- =========================
+       SERVICE WORKER
+  ========================== -->
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -35,76 +44,104 @@
 
 <body>
 
-  
-                
-  <!-- WORD OF THE DAY -->
- <section class="wotd-card" id="wotd">
-  
-  <div class="wotd-title">📅 Word of the Day</div>
-  <div class="wotd-streak">🔥 <span id="streakCountWOTD">0</span> Day Streak</div>
-  <div class="wotd-word" id="wotdWord"></div>
-  <div class="wotd-def" id="wotdDef"></div>
+  <!-- =========================
+       WORD OF THE DAY
+  ========================== -->
+  <section class="wotd-card" id="wotd">
 
-  <div class="wotd-image">
-    <img id="wotdImg" src="images/ek-book.png" alt="Word illustration">
-  </div>
- 
-</section>
+    <div class="wotd-title">📅 Word of the Day</div>
+    <div class="wotd-streak">🔥 <span id="streakCountWOTD">0</span> Day Streak</div>
 
-  <!-- MAIN APP -->
+    <div class="wotd-word" id="wotdWord"></div>
+    <div class="wotd-def" id="wotdDef"></div>
+
+    <div class="wotd-image">
+      <img id="wotdImg" src="images/ek-book.png" alt="Word illustration">
+    </div>
+
+  </section>
+
+  <!-- =========================
+       MAIN APP
+  ========================== -->
   <main class="container">
+
+    <!-- LEVEL + STREAK -->
     <div class="level-box">
-  🏅 Level: <span id="levelDisplay">1</span>  
-  ⭐ XP: <span id="xpDisplay">0</span>
-  </div>
-  <div class="streak-box">
-    🔥 <span id="streakCount">0</span>
-  </div>
-  
+      🏅 Level: <span id="levelDisplay">1</span>
+      ⭐ XP: <span id="xpDisplay">0</span>
+    </div>
+
+    <div class="streak-box">
+      🔥 <span id="streakCount">0</span>
+    </div>
 
     <!-- SEARCH -->
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Search word...">
-    <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>   
-  </div>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search word...">
+      <button type="button" class="btn btn-primary" onclick="searchWord()">Search</button>
+    </div>
 
-  
-
-  <!-- ACTION BUTTONS -->
-<div class="action-cards">
-  <div class="action-card" id="showAll">📚 All Words</div>
-  <div class="action-card" id="showFavs">❤️ Favorites</div>
-  <div class="action-card" id="showHistory">🕘 History</div>
-</div>
+    <!-- ACTION BUTTONS -->
+    <div class="action-cards">
+      <div class="action-card" id="showAll">📚 All Words</div>
+      <div class="action-card" id="showFavs">❤️ Favorites</div>
+      <div class="action-card" id="showHistory">🕘 History</div>
+    </div>
 
     <!-- RESULTS -->
     <div id="result"></div>
 
     <!-- PAGINATION -->
     <div id="pagination" class="text-center mt-4">
-      <button id="prevBtn" onclick="prevPage()">Previous</button>
+      <button id="prevBtn" onclick="prevPage()">Prev</button>
+      <span id="pageNumbers"></span>
       <button id="nextBtn" onclick="nextPage()">Next</button>
     </div>
 
   </main>
 
-  <!-- MODAL -->
+  <!-- =========================
+       QUIZ SECTION
+  ========================== -->
+  <section class="quiz-section">
+
+    <div class="quiz-card-wrapper">
+
+      <div class="quiz-header">
+        <h2>🎯 Daily Quiz</h2>
+        <p id="quizInfo"></p>
+        <button id="startQuizBtn">Start</button>
+      </div>
+
+      <div class="card-body">
+        <div id="quiz"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       MODAL
+  ========================== -->
   <div class="modal fade" id="wordModal" tabindex="-1" aria-hidden="true">
+
     <div class="modal-dialog modal-dialog-centered">
 
       <div class="modal-content dict-modal">
 
         <div class="modal-header dict-header">
 
-  <div class="dict-title-wrap">
-    <h1 class="modal-title" id="modalWord"></h1>
-  </div>
+          <div class="dict-title-wrap">
+            <h1 class="modal-title" id="modalWord"></h1>
+          </div>
 
-  <img class="modal-illustration" src="images/ek-smile.png" alt="">
+          <img class="modal-illustration" src="images/ek-smile.png" alt="">
 
-  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-</div>
+        </div>
 
         <div class="modal-body dict-body">
 
@@ -114,7 +151,9 @@
           <a id="modalLink" class="dict-link" target="_blank">
             ✏️ See usage in a sentence
           </a>
-          </br>
+
+          <br>
+
           <button id="favBtn" class="fav-btn mt-3">
             ❤️ Add to Favorites
           </button>
@@ -125,13 +164,17 @@
     </div>
   </div>
 
-  <!-- TOAST CONTAINER -->
+  <!-- =========================
+       TOAST
+  ========================== -->
   <div id="toast" class="toast-custom"></div>
 
-  <!-- SCRIPTS (optimized order) -->
+  <!-- =========================
+       SCRIPTS
+  ========================== -->
   <script src="script.js" defer></script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

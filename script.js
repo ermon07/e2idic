@@ -1,3 +1,4 @@
+
 // =========================
 // GLOBAL STATE
 // =========================
@@ -10,6 +11,42 @@ let currentWordData = null;
 let currentView = "all";
 
 let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+let dailyQuiz = JSON.parse(localStorage.getItem("dailyQuiz")) || {
+  date: null,
+  questions: [],
+  score: 0,
+  answered: 0
+};
+
+const QUIZ_KEY = "dailyQuiz";
+
+function getToday() {
+  return new Date().toDateString();
+}
+
+function getDailyQuiz() {
+  const saved = JSON.parse(localStorage.getItem(QUIZ_KEY));
+
+  if (saved && saved.date === getToday()) {
+    return saved;
+  }
+
+  // RESET NEW DAY
+  const questions = generateQuizQuestions(5);
+
+ const newQuiz = {
+  date: getToday(),
+  questions,
+  score: 0,
+  answered: 0,
+  completed: false,
+  currentIndex: 0   // ✅ ADD THIS
+};
+
+  localStorage.setItem(QUIZ_KEY, JSON.stringify(newQuiz));
+  return newQuiz;
+}
 
 // =========================
 // GAME SYSTEM (XP + LEVEL)
@@ -123,6 +160,7 @@ fetch("ilocano_dictionary.json")
   .then(res => res.json())
   .then(data => {
     dictionary = data;
+    
 
     showPage(currentPage);
     updateButtons();
@@ -202,6 +240,7 @@ function showPage(page) {
   const end = start + itemsPerPage;
 
   renderItems(dictionary.slice(start, end));
+  renderPageNumbers(); // ✅ ADD THIS
 }
 
 function updateButtons() {
@@ -227,6 +266,59 @@ function prevPage() {
     showPage(currentPage);
     updateButtons();
   }
+}
+
+function renderPageNumbers() {
+  const pageNumbersDiv = document.getElementById("pageNumbers");
+  const pageCount = Math.ceil(dictionary.length / itemsPerPage);
+
+  let pages = [];
+
+  // Always show first few pages
+  for (let i = 1; i <= pageCount; i++) {
+    if (
+      i === 1 ||
+      i === pageCount ||
+      (i >= currentPage - 2 && i <= currentPage + 2)
+    ) {
+      pages.push(i);
+    } else if (
+      i === currentPage - 3 ||
+      i === currentPage + 3
+    ) {
+      pages.push("...");
+    }
+  }
+
+  // Remove duplicate "..."
+  pages = pages.filter((item, index) => {
+    return item !== "..." || pages[index - 1] !== "...";
+  });
+
+  pageNumbersDiv.innerHTML = pages
+    .map(p => {
+      if (p === "...") {
+        return `<span style="margin:0 5px;">...</span>`;
+      }
+
+      return `
+        <button 
+          onclick="goToPage(${p})"
+          style="margin:3px; ${
+            p === currentPage ? "background:#5a67d8;" : ""
+          }">
+          ${p}
+        </button>
+      `;
+    })
+    .join("");
+}
+
+function goToPage(page) {
+  currentPage = page;
+  showPage(currentPage);
+  updateButtons();
+  renderPageNumbers();
 }
 
 // =========================
@@ -498,10 +590,187 @@ function checkDailyWOTDNotification(wordObj) {
 }
 
 // =========================
+// QUIZ SYSTEM
+// ======================
+
+function generateQuizQuestions(count) {
+  const shuffled = [...dictionary].sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, count);
+
+  return selected.map(item => {
+    const correct = item.definition;
+
+    const wrong = dictionary
+      .filter(d => d.word !== item.word)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3)
+      .map(d => d.definition);
+
+    return {
+      word: item.word,
+      correct,
+      options: [...wrong, correct].sort(() => 0.5 - Math.random())
+    };
+  });
+}
+
+function renderQuiz() {
+  const quiz = getDailyQuiz();
+  const quizDiv = document.getElementById("quiz");
+
+  const index = quiz.currentIndex;
+  const q = quiz.questions[index];
+
+  document.getElementById("quizInfo").textContent =
+    `Question ${index + 1} / ${quiz.questions.length} | Score: ${quiz.score}`;
+
+  if (!q || !q.options) {
+    quizDiv.innerHTML = `<div class="quiz-card">⚠️ Quiz error</div>`;
+    return;
+  }
+
+  quizDiv.innerHTML = `
+    <div class="quiz-card">
+      <div><strong>${q.word.toUpperCase()}</strong></div>
+      ${q.options.map(opt => `
+        <button onclick="answerQuiz(\`${opt}\`)">
+          ${opt}
+        </button>
+        </br>
+      `).join("")}
+    </div>
+  `;
+}
+
+function answerQuiz(answer) {
+  let quiz = getDailyQuiz();
+
+  const index = quiz.currentIndex;
+  const q = quiz.questions[index];
+
+  if (!q || q.answered) return;
+
+  q.answered = true;
+
+  if (answer === q.correct) {
+    quiz.score += 1;
+    addXP(10);
+    showToast("✅ Correct!", "success");
+  } else {
+    showToast("❌ Wrong!", "remove");
+  }
+
+  quiz.answered++;
+
+  // move to next question
+  quiz.currentIndex++;
+
+  const allDone = quiz.currentIndex >= quiz.questions.length;
+
+  if (allDone) {
+    quiz.completed = true;
+    quiz.completedAt = new Date().toISOString();
+
+    localStorage.setItem(QUIZ_KEY, JSON.stringify(quiz));
+    showFinalScore(quiz);
+    return;
+  }
+
+  localStorage.setItem(QUIZ_KEY, JSON.stringify(quiz));
+
+  // render next question
+  renderQuiz();
+}
+
+document.getElementById("startQuizBtn").addEventListener("click", () => {
+  if (!dictionary.length) {
+    showToast("Dictionary still loading...", "remove");
+    return;
+  }
+
+  let quiz = getDailyQuiz();
+
+  // If no questions exist yet OR corrupted → regenerate
+  if (!quiz.questions || quiz.questions.length === 0) {
+    quiz.questions = generateQuizQuestions(5);
+    quiz.score = 0;
+    quiz.answered = 0;
+    quiz.completed = false;
+
+    localStorage.setItem(QUIZ_KEY, JSON.stringify(quiz));
+  }
+
+  // If already completed today
+  if (quiz.completed) {
+    
+    showFinalScore(quiz);
+    return;
+  }
+
+  renderQuiz();
+});
+
+function showFinalScore(quiz) {
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML = `
+    <div class="quiz-card" style="text-align:center;">
+      <h2>🎉 Quiz Completed!</h2>
+      <p>Your Score:</p>
+      <h1>${quiz.score} / ${quiz.questions.length}</h1>
+
+      <p style="margin-top:10px;color:#888;">
+        Come back tomorrow for a new quiz!
+      </p>
+    </div>
+  `;
+
+  document.getElementById("quizInfo").textContent =
+    `Completed today`;
+
+  // disable start button
+  document.getElementById("startQuizBtn").disabled = true;
+  document.getElementById("startQuizBtn").textContent = "Completed";
+}
+
+function showQuizIntro() {
+  const quizDiv = document.getElementById("quiz");
+
+  quizDiv.innerHTML = `
+    <div class="quiz-card" style="text-align:center; padding:30px;">
+      <p style="color:#888; margin-top:10px;">
+        Click <b>Start</b> to view your quiz today
+      </p>
+    
+  `;
+}
+
+function initQuizUI() {
+  const quiz = getDailyQuiz();
+
+  const btn = document.getElementById("startQuizBtn");
+
+  // If completed → show final screen
+  if (quiz.completed) {
+    showFinalScore(quiz);
+    btn.disabled = true;
+    btn.textContent = "Completed";
+    return;
+  }
+
+  // If not started → show intro
+  showQuizIntro();
+  btn.disabled = false;
+  btn.textContent = "Start";
+}
+
+
+// =========================
 // INIT
 // =========================
 loadStreak();
 updateGameUI();
+initQuizUI();
+
 
 document.addEventListener("DOMContentLoaded", () => {
   if ("Notification" in window) {
@@ -515,3 +784,4 @@ setInterval(() => {
   const wotd = getWordOfTheDay(dictionary);
   checkDailyWOTDNotification(wotd);
 }, 60 * 60 * 1000);
+

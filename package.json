@@ -1,0 +1,23 @@
+{
+  "name": "e2idic",
+  "version": "1.0.0",
+  "description": "English to Ilocano Dictionary (PWA)",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ermon07/e2idic.git"
+  },
+  "keywords": [
+    "dictionary",
+    "ilocano",
+    "pwa"
+  ],
+  "author": "Ermon Kyle Antonio",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}

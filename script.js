@@ -1,4 +1,4 @@
-
+localStorage.removeItem("dailyQuiz");
 // =========================
 // GLOBAL STATE
 // =========================
@@ -78,6 +78,25 @@ function updateGameUI() {
 
   if (xpEl) xpEl.textContent = game.xp;
   if (lvlEl) lvlEl.textContent = game.level;
+}
+
+// =========================
+// COIN SYSTEM
+// =========================
+let coins = parseInt(localStorage.getItem("coins")) || 0;
+
+function addCoins(amount) {
+  coins += amount;
+  localStorage.setItem("coins", coins);
+  updateCoinsUI();
+}
+
+function updateCoinsUI() {
+  const coinEl = document.getElementById("coinDisplay");
+  if (coinEl) coinEl.textContent = coins;
+
+  const coinEl2 = document.getElementById("coinCount");
+  if (coinEl2) coinEl2.textContent = coins;
 }
 
 // =========================
@@ -655,6 +674,7 @@ function answerQuiz(answer) {
   if (answer === q.correct) {
     quiz.score += 1;
     addXP(10);
+    addCoins(10);
     showToast("✅ Correct!", "success");
   } else {
     showToast("❌ Wrong!", "remove");
@@ -770,6 +790,7 @@ function initQuizUI() {
 loadStreak();
 updateGameUI();
 initQuizUI();
+updateCoinsUI();
 
 
 document.addEventListener("DOMContentLoaded", () => {

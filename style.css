@@ -117,6 +117,8 @@ h1 {
 
 
 
+
+
 /* =========================
    SEARCH
 ========================= */
@@ -555,5 +557,87 @@ button:disabled {
   font-size: 13px;
 }
 
+/* =========================
+   PET
+========================= */
 
 
+.pet {
+  position: relative;
+  width: 200px;
+ 
+}
+
+.layer {
+  position: absolute;
+  width: 100%;
+}
+
+.tail {
+  transform-origin: 40% 40%;
+  animation: wag 0.25s infinite;
+  z-index: 1;
+}
+
+.base {
+  z-index: 2;
+}
+
+.eyes {
+  animation: blink 4s infinite;
+  z-index: 3;
+}
+
+@keyframes wag {
+  0% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+@keyframes blink {
+  0%, 95%, 100% { opacity: 1; }
+  97% { opacity: 0; }
+}
+
+.pet-card {
+  position: relative;
+  background: #fff;
+  margin: 20px auto;
+  max-width: 800px;
+  max-height: 800px;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  
+}
+
+/* CENTER CONTENT STAYS NORMAL */
+.pet-title {
+  position: aboslute;
+  z-index: 2;
+}
+
+/* FLOATING IMAGE */
+.pet {
+  position: absolute;
+  top: 10%;
+  right: 45%;
+  bottom: 50%;
+
+  z-index: 1; /* behind text */
+  pointer-events: none; /* prevents interaction blocking */
+}
+
+.pet-title {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.shirt {
+  z-index: 2.5;
+  width: 100%;
+}

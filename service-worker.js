@@ -1,4 +1,4 @@
-const CACHE_NAME = "dictionary-app-v1.4"; // 🔥 change version when you update
+const CACHE_NAME = "dictionary-app-v1.5"; // 🔥 change version when you update
 const urlsToCache = [
   '/',
   '/index.html',
@@ -13,7 +13,10 @@ const urlsToCache = [
   '/images/ek-smile.png',
   '/images/ek-book.png',
   '/images/ek-korean-heart.png',
-  '/images/ek-history.png'
+  '/images/ek-history.png',
+  '/images/assets/tail.png',
+  '/images/assets/base.png',
+  '/images/assets/eyes.png'
 ];
 
 // Install

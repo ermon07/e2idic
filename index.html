@@ -135,27 +135,62 @@
 
 
 
-   <section class="pet-card" id="peto">
-    <div class="pet-title">🐾 Your Pet</div>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-   </br>
-     <div class="pet" id="pet">
-        <img src="images/assets/tail.png" class="layer tail">
-        <img src="images/assets/base.png" class="layer base">
-        <img src="images/assets/eyes.png" class="layer eyes">
-        
+ <section class="pet-card" id="peto">
+
+  <div class="pet-header">
+    <div class="pet-title">🐾 Your Pets</div>
+
+    <div class="pet-controls">
+      <button id="shopBtn">🛒 Shop</button>
+      <button id="inventoryBtn">🎒 Inventory</button>
+    </div>
+  </div>
+
+  <div class="pet-display">
+    
+    <div class="pet-dog">
+      <img src="images/assets/dog/tail.png" class="layer tail-dog">
+      <img src="images/assets/dog/base.png" class="layer base">
+      <img src="images/assets/dog/eyes.png" class="layer eyes">   
     </div>
 
-  </section>
-  <!-- =========================
-       MODAL
-  ========================== -->
+    <div class="pet-cat">
+      <img src="images/assets/cat/tail.png" class="layer tail-cat">
+      <img src="images/assets/cat/base.png" class="layer base">
+      <img src="images/assets/cat/eyes.png" class="layer eyes">   
+    </div>
+
+  </div>
+
+</section>
+
+ <!-- =========================
+     PET SYSTEM MODAL
+========================= -->
+<div class="modal fade" id="petModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="petModalTitle">Pet System</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="petModalBody">
+        <!-- dynamic content -->
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+ 
   <div class="modal fade" id="wordModal" tabindex="-1" aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered">

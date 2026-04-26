@@ -783,6 +783,41 @@ function initQuizUI() {
   btn.textContent = "Start";
 }
 
+// =========================
+// PET MODAL
+// =========================
+
+document.getElementById("shopBtn").addEventListener("click", () => {
+  openPetModal("shop");
+});
+
+document.getElementById("inventoryBtn").addEventListener("click", () => {
+  openPetModal("inventory");
+});
+
+function openPetModal(type) {
+  const modal = new bootstrap.Modal(document.getElementById("petModal"));
+
+  const title = document.getElementById("petModalTitle");
+  const body = document.getElementById("petModalBody");
+
+  if (type === "shop") {
+    title.innerText = "🛒 Shop";
+    body.innerHTML = `
+      <p>No items yet</p>
+    `;
+  }
+
+  if (type === "inventory") {
+    title.innerText = "🎒 Inventory";
+    body.innerHTML = `
+      <p>No items yet</p>
+    `;
+  }
+
+  modal.show();
+}
+
 
 // =========================
 // INIT

@@ -19,10 +19,15 @@
   box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: linear-gradient(135deg, #667eea, #764ba2);
-  height: 100vh;
+  min-height: 100vh;
   color: #222;
 }
 
@@ -558,24 +563,95 @@ button:disabled {
 }
 
 /* =========================
-   PET
+   PET CARD
 ========================= */
 
-
-.pet {
+.pet-card {
   position: relative;
-  width: 200px;
- 
+  background-image: url("images/assets/backgrounds/backyard.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 18px;
+  padding-bottom: 40px; /* gives pets breathing room */
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  text-align: center;
 }
+
+/* =========================
+   HEADER
+========================= */
+
+.pet-header {
+  position: relative;
+  z-index: 2;
+}
+
+.pet-title {
+  font-size: 14px;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+/* =========================
+   PET LAYOUT
+========================= */
+
+.pet-display {
+  position: relative;
+  height: 220px; /* controls pet area */
+  overflow: hidden;
+}
+
+/* FLOATING PETS */
+.pet-dog {
+  position: absolute;
+  width: 200px;
+
+  top: 5%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  
+}
+
+.pet-cat {
+  position: absolute;
+  width: 130px;
+
+  top: 25%;
+  right: 55%;
+
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* =========================
+   LAYERS
+========================= */
 
 .layer {
   position: absolute;
   width: 100%;
 }
 
-.tail {
+.tail-dog {
   transform-origin: 40% 40%;
-  animation: wag 0.25s infinite;
+  animation: wag-dog 0.25s infinite;
+  z-index: 1;
+}
+
+.tail-cat {
+  transform-origin: 50% 90%;
+  animation: wag-cat 0.25s infinite;
   z-index: 1;
 }
 
@@ -583,12 +659,25 @@ button:disabled {
   z-index: 2;
 }
 
+.shirt {
+  z-index: 2.5;
+  width: 100%;
+}
+
 .eyes {
   animation: blink 4s infinite;
   z-index: 3;
 }
 
-@keyframes wag {
+
+
+@keyframes wag-dog {
+  0% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+@keyframes wag-cat {
   0% { transform: rotate(5deg); }
   50% { transform: rotate(-5deg); }
   100% { transform: rotate(5deg); }
@@ -599,45 +688,83 @@ button:disabled {
   97% { opacity: 0; }
 }
 
-.pet-card {
-  position: relative;
-  background: #fff;
-  margin: 20px auto;
-  max-width: 800px;
-  max-height: 800px;
-  padding: 18px;
+@keyframes breathe {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -52%) scale(1.03); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+
+/* =========================
+   SHOP AND INVENTORY BUTTONS
+========================= */
+
+#shopBtn {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+#inventoryBtn {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+
+
+.pet-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.pet-modal-content {
+  width: 320px;
+  background: white;
   border-radius: 14px;
-  box-shadow: var(--shadow);
-  text-align: center;
-  
+  padding: 16px;
 }
 
-/* CENTER CONTENT STAYS NORMAL */
-.pet-title {
-  position: aboslute;
-  z-index: 2;
+.pet-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* FLOATING IMAGE */
-.pet {
-  position: absolute;
-  top: 10%;
-  right: 45%;
-  bottom: 50%;
-
-  z-index: 1; /* behind text */
-  pointer-events: none; /* prevents interaction blocking */
+.pet-modal-body {
+  margin-top: 10px;
 }
 
-.pet-title {
-  font-size: 14px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-}
+/* =========================
+   MOBILE RESPONSIVENESS
+========================= */
 
-.shirt {
-  z-index: 2.5;
-  width: 100%;
+@media (max-width: 600px) {
+
+  .container,
+  .quiz-section,
+  .wotd-card,
+  .pet-card {
+    margin: 10px;
+    max-width: 100%;
+  }
+
+  .pet-display {
+    height: 180px;
+  }
+
+  .search-box {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }

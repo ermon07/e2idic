@@ -1,4 +1,4 @@
-localStorage.removeItem("dailyQuiz");
+
 // =========================
 // GLOBAL STATE
 // =========================

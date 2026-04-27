@@ -28,6 +28,14 @@ const urlsToCache = [
   '/images/assets/cat/shirts/2.png',
   '/images/assets/cat/shirts/3.png',
   '/images/assets/cat/shirts/4.png',
+  'images/assets/inv_shop_icons/dog/1.png',
+  'images/assets/inv_shop_icons/dog/2.png',
+  'images/assets/inv_shop_icons/dog/3.png',
+  'images/assets/inv_shop_icons/dog/4.png',
+  'images/assets/inv_shop_icons/cat/1.png',
+  'images/assets/inv_shop_icons/cat/2.png',
+  'images/assets/inv_shop_icons/cat/3.png',
+  'images/assets/inv_shop_icons/cat/4.png',
   '/images/assets/backgrounds/backyard.png'
 ];
 

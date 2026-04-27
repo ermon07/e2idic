@@ -84,15 +84,15 @@ function updateGameUI() {
 // ITEMS SYSTEM
 // =========================
 const shopItems = [
-  { id: "dog_shirt_1", type: "dog", price: 300, img: "images/assets/dog/shirts/1.png", name: "Blue Doggo Sweater" },
-  { id: "dog_shirt_2", type: "dog", price: 200, img: "images/assets/dog/shirts/2.png", name: "Red Plaid Doggo Shirt" },
-  { id: "dog_shirt_3", type: "dog", price: 100, img: "images/assets/dog/shirts/3.png", name: "Hawaiian Doggo Shirt" },
-  { id: "dog_shirt_4", type: "dog", price: 50, img: "images/assets/dog/shirts/4.png", name: "Plain Doggo Shirt" },
+  { id: "dog_shirt_1", type: "dog", price: 300, img: "images/assets/dog/shirts/1.png", name: "Blue Doggo Sweater", ico: "images/assets/inv_shop_icons/dog/1.png" },
+  { id: "dog_shirt_2", type: "dog", price: 200, img: "images/assets/dog/shirts/2.png", name: "Red Plaid Doggo Shirt", ico: "images/assets/inv_shop_icons/dog/2.png" },
+  { id: "dog_shirt_3", type: "dog", price: 100, img: "images/assets/dog/shirts/3.png", name: "Hawaiian Doggo Shirt", ico: "images/assets/inv_shop_icons/dog/3.png" },
+  { id: "dog_shirt_4", type: "dog", price: 50, img: "images/assets/dog/shirts/4.png", name: "Plain Doggo Shirt", ico: "images/assets/inv_shop_icons/dog/4.png" },
 
-  { id: "cat_shirt_1", type: "cat", price: 50, img: "images/assets/cat/shirts/1.png", name: "Green Catto Shirt" },
-  { id: "cat_shirt_2", type: "cat", price: 100, img: "images/assets/cat/shirts/2.png", name: "Yellow Catto Shirt" },
-  { id: "cat_shirt_3", type: "cat", price: 300, img: "images/assets/cat/shirts/3.png", name: "Fish AOP Catto Shirt" },
-  { id: "cat_shirt_4", type: "cat", price: 200, img: "images/assets/cat/shirts/4.png", name: "Stripe Catto Shirt"}
+  { id: "cat_shirt_1", type: "cat", price: 50, img: "images/assets/cat/shirts/1.png", name: "Green Catto Shirt", ico: "images/assets/inv_shop_icons/cat/1.png" },
+  { id: "cat_shirt_2", type: "cat", price: 100, img: "images/assets/cat/shirts/2.png", name: "Yellow Catto Shirt", ico: "images/assets/inv_shop_icons/cat/2.png" },
+  { id: "cat_shirt_3", type: "cat", price: 300, img: "images/assets/cat/shirts/3.png", name: "Fish AOP Catto Shirt", ico: "images/assets/inv_shop_icons/cat/3.png" },
+  { id: "cat_shirt_4", type: "cat", price: 200, img: "images/assets/cat/shirts/4.png", name: "Stripe Catto Shirt", ico: "images/assets/inv_shop_icons/cat/4.png"}
 ];
 
 let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
@@ -938,7 +938,7 @@ function renderInventoryUI() {
 
         return `
           <div class="pet-card-item">
-            <img src="${item.img}" class="pet-item-img">
+            <img src="${item.ico}" class="pet-item-img">
 
             <div class="pet-item-name">
               ${item.name}
@@ -971,7 +971,7 @@ function renderShopUI() {
 
         return `
           <div class="pet-card-item">
-            <img src="${item.img}" class="pet-item-img">
+            <img src="${item.ico}" class="pet-item-img">
 
             <div class="pet-item-name">
               ${item.name}

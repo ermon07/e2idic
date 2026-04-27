@@ -818,9 +818,7 @@ function openPetModal(type) {
   // -------------------------
   if (type === "shop") {
   title.innerText = "🛒 Shop";
-  const shopAnimal = "cat";
-  document.querySelector(".animal-cards").classList.remove("hidden");
-  renderShopUI(shopAnimal);
+  renderShopUI();
   
 }
 
@@ -829,7 +827,6 @@ function openPetModal(type) {
   // -------------------------
 if (type === "inventory") {
   title.innerText = "🎒 Inventory";
-  document.querySelector(".animal-cards").classList.add("hidden");
   renderInventoryUI();
 }
 
@@ -926,23 +923,9 @@ function applyEquipped() {
 }
 
 
-document.getElementById("shopCat").addEventListener("click", () => {
-  const shopAnimal = "cat";
-  renderInventoryUI(shopAnimal);
-  renderShopUI(shopAnimal);
- 
-});
-
-document.getElementById("shopDog").addEventListener("click", () => {
-  const shopAnimal = "dog";
-  renderInventoryUI(shopAnimal);
-  renderShopUI(shopAnimal);
-
-});
-
 // RENDER INVENTORY UI
 
-function renderInventoryUI(shopAnimal) {
+function renderInventoryUI() {
   const body = document.getElementById("petModalBody");
 
 
@@ -990,12 +973,12 @@ function renderInventoryUI(shopAnimal) {
 
 
 // RENDER SHOP UI
-function renderShopUI(shopAnimal) {
+function renderShopUI() {
   const body = document.getElementById("petModalBody");
 
   body.innerHTML = `
     <div class="pet-grid">
-      ${shopItems.filter(item => item.type === shopAnimal).map(item => {
+      ${shopItems.map(item => {
         const owned = inventory.includes(item.id);
 
         return `

@@ -819,6 +819,7 @@ function openPetModal(type) {
   if (type === "shop") {
   title.innerText = "🛒 Shop";
   const shopAnimal = "cat";
+  document.querySelector(".animal-cards").classList.remove("hidden");
   renderShopUI(shopAnimal);
   
 }

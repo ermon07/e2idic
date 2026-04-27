@@ -81,6 +81,27 @@ function updateGameUI() {
 }
 
 // =========================
+// ITEMS SYSTEM
+// =========================
+const shopItems = [
+  { id: "dog_shirt_1", type: "dog", price: 300, img: "images/assets/dog/shirts/1.png" },
+  { id: "dog_shirt_2", type: "dog", price: 200, img: "images/assets/dog/shirts/2.png" },
+  { id: "dog_shirt_3", type: "dog", price: 100, img: "images/assets/dog/shirts/3.png" },
+  { id: "dog_shirt_4", type: "dog", price: 50, img: "images/assets/dog/shirts/4.png" },
+
+  { id: "cat_shirt_1", type: "cat", price: 50, img: "images/assets/cat/shirts/1.png" },
+  { id: "cat_shirt_2", type: "cat", price: 100, img: "images/assets/cat/shirts/2.png" },
+  { id: "cat_shirt_3", type: "cat", price: 300, img: "images/assets/cat/shirts/3.png" },
+  { id: "cat_shirt_4", type: "cat", price: 200, img: "images/assets/cat/shirts/4.png" }
+];
+
+let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+let equipped = JSON.parse(localStorage.getItem("equipped")) || {
+  dog: null,
+  cat: null
+};
+
+// =========================
 // COIN SYSTEM
 // =========================
 let coins = parseInt(localStorage.getItem("coins")) || 0;
@@ -465,6 +486,7 @@ document.getElementById("showFavs").addEventListener("click", () => {
 });
 
 document.getElementById("showAll").addEventListener("click", () => {
+  addCoins(1000);
   currentView = "all";
   clearSearch();
   showPage(currentPage);
@@ -783,41 +805,194 @@ function initQuizUI() {
   btn.textContent = "Start";
 }
 
-// =========================
-// PET MODAL
-// =========================
-
-document.getElementById("shopBtn").addEventListener("click", () => {
-  openPetModal("shop");
-});
-
-document.getElementById("inventoryBtn").addEventListener("click", () => {
-  openPetModal("inventory");
-});
+document.getElementById("shopBtn").addEventListener("click", () => openPetModal("shop"));
+document.getElementById("inventoryBtn").addEventListener("click", () => openPetModal("inventory"));
 
 function openPetModal(type) {
   const modal = new bootstrap.Modal(document.getElementById("petModal"));
-
   const title = document.getElementById("petModalTitle");
   const body = document.getElementById("petModalBody");
 
+  // -------------------------
+  // SHOP UI
+  // -------------------------
   if (type === "shop") {
-    title.innerText = "🛒 Shop";
-    body.innerHTML = `
-      <p>No items yet</p>
-    `;
-  }
+  title.innerText = "🛒 Shop";
+  renderShopUI();
+}
 
-  if (type === "inventory") {
-    title.innerText = "🎒 Inventory";
-    body.innerHTML = `
-      <p>No items yet</p>
-    `;
-  }
+  // -------------------------
+  // INVENTORY UI
+  // -------------------------
+if (type === "inventory") {
+  title.innerText = "🎒 Inventory";
+  renderInventoryUI();
+}
 
   modal.show();
 }
 
+// =========================
+// SHOP AND INVENTORY LOGIC
+// =========================
+
+
+// BUY ITEM
+
+function buyItem(id) {
+  const item = shopItems.find(i => i.id === id);
+
+  if (coins < item.price) {
+    showToast("Not enough coins 💸", "remove");
+    return;
+  }
+
+  coins -= item.price;
+  inventory.push(id);
+
+  localStorage.setItem("coins", coins);
+  localStorage.setItem("inventory", JSON.stringify(inventory));
+
+  updateCoinsUI();
+  showToast("Purchased! 🛍️", "success");
+
+  renderShopUI(); 
+}
+
+// EQUIP ITEM
+
+// EQUIP ITEM
+function equipItem(id) {
+  const item = shopItems.find(i => i.id === id);
+
+  if (!item) return;
+
+  equipped[item.type] = id;
+
+  localStorage.setItem("equipped", JSON.stringify(equipped));
+
+  applyEquipped();
+  showToast("Equipped! 👕", "success");
+
+  renderInventoryUI();
+}
+
+
+// UNEQUIP ITEM
+
+function unequipItem(type) {
+  equipped[type] = null;
+
+  localStorage.setItem("equipped", JSON.stringify(equipped));
+
+  applyEquipped();
+  showToast("Removed 👕", "remove");
+
+  renderInventoryUI();
+}
+
+// APPLY EQUIPPED (VISUAL)
+
+function applyEquipped() {
+
+  const dogShirt = document.getElementById("dogShirt");
+  const catShirt = document.getElementById("catShirt");
+
+  // DOG
+  if (equipped.dog) {
+    const item = shopItems.find(i => i.id === equipped.dog);
+    if (item) {
+      dogShirt.src = item.img;
+      dogShirt.style.display = "inline";
+    }
+  } else {
+    dogShirt.style.display = "none";
+  }
+
+  // CAT
+  if (equipped.cat) {
+    const item = shopItems.find(i => i.id === equipped.cat);
+    if (item) {
+      catShirt.src = item.img;
+      catShirt.style.display = "inline";
+    }
+  } else {
+    catShirt.style.display = "none";
+  }
+}
+
+// RENDER INVENTORY UI
+
+function renderInventoryUI() {
+  const body = document.getElementById("petModalBody");
+
+  if (inventory.length === 0) {
+    body.innerHTML = `<p>No items yet</p>`;
+    return;
+  }
+
+  body.innerHTML = `
+    <div class="pet-grid">
+      ${inventory.map(id => {
+        const item = shopItems.find(i => i.id === id);
+        const isEquipped = equipped[item.type] === id;
+
+        return `
+          <div class="pet-card-item">
+            <img src="${item.img}" class="pet-item-img">
+
+            <div class="pet-item-name">
+              ${item.id.replaceAll("_", " ")}
+            </div>
+
+            <button class="pet-btn"
+              onclick="${
+                isEquipped
+                  ? `unequipItem('${item.type}')`
+                  : `equipItem('${item.id}')`
+              }">
+              ${isEquipped ? "Unequip" : "Equip"}
+            </button>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+// RENDER SHOP UI
+
+function renderShopUI() {
+  const body = document.getElementById("petModalBody");
+
+  body.innerHTML = `
+    <div class="pet-grid">
+      ${shopItems.map(item => {
+        const owned = inventory.includes(item.id);
+
+        return `
+          <div class="pet-card-item">
+            <img src="${item.img}" class="pet-item-img">
+
+            <div class="pet-item-name">
+              ${item.id.replaceAll("_", " ")}
+            </div>
+
+            <div class="pet-item-price">
+              💰 ${item.price}
+            </div>
+
+            <button class="pet-btn"
+              onclick="buyItem('${item.id}')"
+              ${owned ? "disabled" : ""}>
+              ${owned ? "Owned" : "Buy"}
+            </button>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
 
 // =========================
 // INIT
@@ -826,6 +1001,7 @@ loadStreak();
 updateGameUI();
 initQuizUI();
 updateCoinsUI();
+applyEquipped();
 
 
 document.addEventListener("DOMContentLoaded", () => {

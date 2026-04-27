@@ -1,4 +1,4 @@
-const CACHE_NAME = "dictionary-app-v1.6"; // 🔥 change version when you update
+const CACHE_NAME = "dictionary-app-v1.7"; // 🔥 change version when you update
 const urlsToCache = [
   '/',
   '/index.html',
@@ -20,6 +20,14 @@ const urlsToCache = [
   '/images/assets/cat/tail.png',
   '/images/assets/cat/base.png',
   '/images/assets/cat/eyes.png',
+  '/images/assets/dog/shirts/1.png',
+  '/images/assets/dog/shirts/2.png',
+  '/images/assets/dog/shirts/3.png',
+  '/images/assets/dog/shirts/4.png',
+  '/images/assets/cat/shirts/1.png',
+  '/images/assets/cat/shirts/2.png',
+  '/images/assets/cat/shirts/3.png',
+  '/images/assets/cat/shirts/4.png',
   '/images/assets/backgrounds/backyard.png'
 ];
 

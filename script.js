@@ -486,7 +486,6 @@ document.getElementById("showFavs").addEventListener("click", () => {
 });
 
 document.getElementById("showAll").addEventListener("click", () => {
-  addCoins(1000);
   currentView = "all";
   clearSearch();
   showPage(currentPage);

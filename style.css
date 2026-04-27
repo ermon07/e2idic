@@ -792,12 +792,23 @@ button:disabled {
 }
 
 /* BUTTON */
-.pet-btn {
+.pet-btn-normal {
   width: 100%;
   padding: 8px;
   border-radius: 10px;
   font-size: 13px;
   background: #667eea;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pet-btn-unq {
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  background: #ff0000;
   color: white;
   border: none;
   cursor: pointer;
@@ -812,6 +823,47 @@ button:disabled {
   text-align: center;
   color: #888;
   padding: 20px;
+}
+
+/* =========================
+   PET ACTION CARDS (UPGRADE)
+========================= */
+.animal-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.hidden {
+  display: none;
+}
+
+.animal-card {
+  flex: 1;
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: 0.25s ease;
+ 
+}
+
+.animal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  border-color: var(--primary);
+}
+
+/* Active state (when selected) */
+.animal-card.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
 }
 
 

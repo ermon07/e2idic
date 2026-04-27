@@ -818,7 +818,9 @@ function openPetModal(type) {
   // -------------------------
   if (type === "shop") {
   title.innerText = "🛒 Shop";
-  renderShopUI();
+  const shopAnimal = "cat";
+  renderShopUI(shopAnimal);
+  
 }
 
   // -------------------------
@@ -826,6 +828,7 @@ function openPetModal(type) {
   // -------------------------
 if (type === "inventory") {
   title.innerText = "🎒 Inventory";
+  document.querySelector(".animal-cards").classList.add("hidden");
   renderInventoryUI();
 }
 
@@ -921,10 +924,26 @@ function applyEquipped() {
   }
 }
 
+
+document.getElementById("shopCat").addEventListener("click", () => {
+  const shopAnimal = "cat";
+  renderInventoryUI(shopAnimal);
+  renderShopUI(shopAnimal);
+ 
+});
+
+document.getElementById("shopDog").addEventListener("click", () => {
+  const shopAnimal = "dog";
+  renderInventoryUI(shopAnimal);
+  renderShopUI(shopAnimal);
+
+});
+
 // RENDER INVENTORY UI
 
-function renderInventoryUI() {
+function renderInventoryUI(shopAnimal) {
   const body = document.getElementById("petModalBody");
+
 
   if (inventory.length === 0) {
     body.innerHTML = `<p>No items yet</p>`;
@@ -936,8 +955,9 @@ function renderInventoryUI() {
       ${inventory.map(id => {
         const item = shopItems.find(i => i.id === id);
         const isEquipped = equipped[item.type] === id;
-
+        
         return `
+       
           <div class="pet-card-item">
             <img src="${item.ico}" class="pet-item-img">
 
@@ -945,12 +965,18 @@ function renderInventoryUI() {
               ${item.name}
             </div>
 
-            <button class="pet-btn"
+            <button
               onclick="${
                 isEquipped
                   ? `unequipItem('${item.type}')`
                   : `equipItem('${item.id}')`
-              }">
+              }"
+              class="${
+                isEquipped
+                ? "pet-btn-unq"
+                : "pet-btn-normal"
+              }"
+              }>
               ${isEquipped ? "Unequip" : "Equip"}
             </button>
           </div>
@@ -960,14 +986,15 @@ function renderInventoryUI() {
   `;
 }
 
-// RENDER SHOP UI
 
-function renderShopUI() {
+
+// RENDER SHOP UI
+function renderShopUI(shopAnimal) {
   const body = document.getElementById("petModalBody");
 
   body.innerHTML = `
     <div class="pet-grid">
-      ${shopItems.map(item => {
+      ${shopItems.filter(item => item.type === shopAnimal).map(item => {
         const owned = inventory.includes(item.id);
 
         return `
@@ -982,7 +1009,7 @@ function renderShopUI() {
               💰 ${item.price}
             </div>
 
-            <button class="pet-btn"
+            <button class="pet-btn-normal"
               onclick="buyItem('${item.id}')"
               ${owned ? "disabled" : ""}>
               ${owned ? "Owned" : "Buy"}
